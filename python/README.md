@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Python v3.6 and greater
+- Python v3.7 and greater
 
 ## TODO:
 
