@@ -31,4 +31,15 @@ public class City {
     public int getName() {
         return name;
     }
+
+    public boolean equals(Object o) {
+        if (o instanceof City) {
+            return name == ((City)o).name;
+        }
+        return false;
+    }
+
+    public String toString() {
+        return name + "";
+    }
 }

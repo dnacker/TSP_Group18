@@ -23,6 +23,16 @@ public class Path {
         addLength(l);
     }
 
+    public boolean containsCity(City other) {
+        boolean contains = false;
+        for (City c: cities) {
+            if (c.equals(other)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addLength(int l) {
         length += l;
     }

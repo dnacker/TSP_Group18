@@ -1,64 +1,20 @@
-import java.io.*;
-import java.util.*;
+import java.util.List;
 
-public class TSP {
+public class NearestNeighbors {
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("Usage: java TSP inputfile");
+            System.out.println("Usage: java TSPFileIO inputfile");
             System.exit(1);
         } else {
-            List<City> cities = readFile(args[0]);
+            List<City> cities = TSPFileIO.readFile(args[0]);
             Path tour;
             if (cities.size() < 1000) {
-                tour = nearestNeighborSolveAllCities(cities);
+                tour = NearestNeighbors.nearestNeighborSolveAllCities(cities);
             } else {
-                tour = nearestNeighborSolveOneCity(cities, cities.get((int)(Math.random()*cities.size())));
+                tour = NearestNeighbors.nearestNeighborSolveOneCity(cities, cities.get((int)(Math.random()*cities.size())));
             }
             tour.printPath(System.out);
-            writeFile(args[0] + ".tour", tour);
-        }
-    }
-
-
-    public static List<City> readFile(String fileName) {
-        List<City> cities = new ArrayList<>();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("input/" + fileName));
-            String line = br.readLine();
-            while (line != null) {
-                Scanner sc = new Scanner(line);
-                cities.add(new City(sc.nextInt(), sc.nextInt(), sc.nextInt()));
-                line = br.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-        }
-        return cities;
-    }
-
-    public static void writeFile(String fileName, Path p) {
-        PrintStream out = null;
-        try {
-            out = new PrintStream(new File("output/" + fileName));
-            p.printPath(out);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } finally {
-            if (out != null) {
-                out.close();
-            }
+            TSPFileIO.writeFile(args[0] + ".tour", tour);
         }
     }
 
@@ -108,5 +64,4 @@ public class TSP {
 //        shortestPath.printPath(System.out);
         return shortestPath;
     }
-
 }

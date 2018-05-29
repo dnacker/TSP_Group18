@@ -1,27 +1,51 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class CityGraph {
-    private List<City> cities;
-    private int[][] distances;
+    private List<CityNode> cityNodes;
 
     public CityGraph() {
-        
+        cityNodes = new ArrayList<>();
     }
 
     public CityGraph(List<City> cities) {
-        this.cities = cities;
-        distances = new int[cities.size()][];
-        for (int i = 0; i < cities.size(); i++) {
-            distances[i] = new int[cities.size()];
-            for (int j = 0; j < cities.size(); j++) {
-                distances[i][j] = cities.get(i).distance(cities.get(j));
-            }
+        cityNodes = new ArrayList<>();
+        for (City c: cities) {
+            cityNodes.add(new CityNode(c));
         }
     }
 
+    public void addCityNode(CityNode cityNode) {
+        cityNodes.add(cityNode);
+    }
 
+    public void connectCities(CityNode a, CityNode b) {
+        a.connectCity(b);
+        b.connectCity(a);
+    }
 
+    public List<CityNode> getCityNodes() {
+        return cityNodes;
+    }
 
+    public CityNode getClosestCity(City other) {
+        int minDist = Integer.MAX_VALUE;
+        CityNode closest = null;
+        for (CityNode cityNode: cityNodes) {
+            int dist = other.distance(cityNode.getCity());
+            if (dist < minDist) {
+                minDist = dist;
+                closest = cityNode;
+            }
+        }
+        return closest;
+    }
 
+    public int size() {
+        return cityNodes.size();
+    }
 
+    public String toString() {
+        return cityNodes.toString();
+    }
 }
