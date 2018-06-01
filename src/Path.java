@@ -4,23 +4,20 @@ import java.util.List;
 
 public class Path {
     private List<City> cities;
-    private int length;
 
     public Path() {
         cities = new ArrayList<>();
-        length = 0;
     }
 
     public void printPath(PrintStream out) {
-        out.println(length);
+        out.println(computeLength());
         for (City c : cities) {
             out.println(c.getName());
         }
     }
 
-    public void addCity(City c, int l) {
+    public void addCity(City c) {
         cities.add(c);
-        addLength(l);
     }
 
     public boolean containsCity(City other) {
@@ -33,11 +30,12 @@ public class Path {
         return false;
     }
 
-    public void addLength(int l) {
-        length += l;
-    }
-
-    public int getLength() {
+    public int computeLength() {
+        int length = 0;
+        for (int i = 0; i < cities.size() - 1; i++) {
+            length += cities.get(i).distance(cities.get(i+1));
+        }
+        length += cities.get(cities.size() - 1).distance(cities.get(0));
         return length;
     }
 }

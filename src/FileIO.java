@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class TSPFileIO {
+public class FileIO {
     public static List<City> readFile(String fileName) {
         List<City> cities = new ArrayList<>();
         BufferedReader br = null;

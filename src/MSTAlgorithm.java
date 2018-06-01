@@ -8,11 +8,11 @@ public class MSTAlgorithm {
             System.out.println("Usage: java MSTAlgorithm inputfile");
             System.exit(1);
         } else {
-            List<City> cities = TSPFileIO.readFile(args[0]);
+            List<City> cities = FileIO.readFile(args[0]);
             CityGraph mst = generateMinimumSpanningTree(cities);
             Path path = twoApproxTour(mst);
             path.printPath(System.out);
-            TSPFileIO.writeFile(args[0] + ".mstTour", path);
+            FileIO.writeFile(args[0] + ".mstTour", path);
 
 
         }
@@ -73,17 +73,12 @@ public class MSTAlgorithm {
              citiesWithRepeats.add(next.getCity());
          }
 
-
-         int idxOfLast = 0;
-         City first = citiesWithRepeats.get(0);
          for (int i = 0; i < citiesWithRepeats.size(); i++) {
              City toAdd = citiesWithRepeats.get(i);
              if (!tour.containsCity(toAdd)) {
-                 tour.addCity(toAdd, toAdd.distance(citiesWithRepeats.get(idxOfLast)));
-                 idxOfLast = i;
+                 tour.addCity(toAdd);
              }
          }
-         tour.addLength(first.distance(citiesWithRepeats.get(idxOfLast)));
          return tour;
     }
 }

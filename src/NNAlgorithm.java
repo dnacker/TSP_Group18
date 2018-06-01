@@ -1,20 +1,20 @@
 import java.util.List;
 
-public class NearestNeighbors {
+public class NNAlgorithm {
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("Usage: java TSPFileIO inputfile");
+            System.out.println("Usage: java FileIO inputfile");
             System.exit(1);
         } else {
-            List<City> cities = TSPFileIO.readFile(args[0]);
+            List<City> cities = FileIO.readFile(args[0]);
             Path tour;
             if (cities.size() < 1000) {
-                tour = NearestNeighbors.nearestNeighborSolveAllCities(cities);
+                tour = NNAlgorithm.nearestNeighborSolveAllCities(cities);
             } else {
-                tour = NearestNeighbors.nearestNeighborSolveOneCity(cities, cities.get((int)(Math.random()*cities.size())));
+                tour = NNAlgorithm.nearestNeighborSolveOneCity(cities, cities.get((int)(Math.random()*cities.size())));
             }
             tour.printPath(System.out);
-            TSPFileIO.writeFile(args[0] + ".tour", tour);
+            FileIO.writeFile(args[0] + ".tour", tour);
         }
     }
 
@@ -25,9 +25,10 @@ public class NearestNeighbors {
         //compute shortest path starting from each city using NearestNeighbor Heuristic
         for (int i = 0; i < cities.size(); i++) {
             Path currentPath = nearestNeighborSolveOneCity(cities, cities.get(i));
-            if (currentPath.getLength() < shortestPathLength) {
+            int currentLength = currentPath.computeLength();
+            if (currentLength < shortestPathLength) {
                 shortestPath = currentPath;
-                shortestPathLength = currentPath.getLength();
+                shortestPathLength = currentLength;
             }
             //reset cities to !visited
             for (City c: cities) {
@@ -40,7 +41,7 @@ public class NearestNeighbors {
     public static Path nearestNeighborSolveOneCity(List<City> cities, City start) {
         Path shortestPath = new Path();
         City curr = start;
-        shortestPath.addCity(curr, 0);
+        shortestPath.addCity(curr);
         curr.visit();
 
         for (int k = 0; k < cities.size() - 1; k++) {
@@ -56,10 +57,9 @@ public class NearestNeighbors {
                 }
             }
             nearestNeighbor.visit();
-            shortestPath.addCity(nearestNeighbor, nearestDist);
+            shortestPath.addCity(nearestNeighbor);
             curr = nearestNeighbor;
         }
-        shortestPath.addLength(curr.distance(start));
 
 //        shortestPath.printPath(System.out);
         return shortestPath;

@@ -48,4 +48,14 @@ public class CityGraph {
     public String toString() {
         return cityNodes.toString();
     }
+
+    public CityGraph getOddVertices() {
+        CityGraph graph = new CityGraph();
+        for (CityNode c: cityNodes) {
+            if (c.getNeighbors().size() % 2 == 1) {
+                graph.addCityNode(c);
+            }
+        }
+        return graph;
+    }
 }
