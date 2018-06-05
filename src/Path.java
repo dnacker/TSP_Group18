@@ -30,6 +30,10 @@ public class Path {
         return false;
     }
 
+    public List<City> getCities() {
+        return cities;
+    }
+
     public int computeLength() {
         int length = 0;
         for (int i = 0; i < cities.size() - 1; i++) {

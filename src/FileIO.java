@@ -2,6 +2,16 @@ import java.io.*;
 import java.util.*;
 
 public class FileIO {
+    public static String getFileName(String[] args) {
+        if (args.length != 1) {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Filename? ");
+            return in.next();
+        } else {
+            return args[0];
+        }
+    }
+
     public static List<City> readFile(String fileName) {
         List<City> cities = new ArrayList<>();
         BufferedReader br = null;

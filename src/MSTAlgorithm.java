@@ -1,21 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class MSTAlgorithm {
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.out.println("Usage: java MSTAlgorithm inputfile");
-            System.exit(1);
-        } else {
-            List<City> cities = FileIO.readFile(args[0]);
-            CityGraph mst = generateMinimumSpanningTree(cities);
-            Path path = twoApproxTour(mst);
-            path.printPath(System.out);
-            FileIO.writeFile(args[0] + ".mstTour", path);
-
-
-        }
+        String filename = FileIO.getFileName(args);
+        List<City> cities = FileIO.readFile(filename);
+        CityGraph mst = generateMinimumSpanningTree(cities);
+        Path path = twoApproxTour(mst);
+        path.printPath(System.out);
+//        FileIO.writeFile(filename + ".mstTour", path);
+        GraphVisualizer graph = new GraphVisualizer(cities, path);
     }
 
     public static CityGraph generateMinimumSpanningTree(List<City> cities) {

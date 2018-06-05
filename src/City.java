@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class City {
     private int xCoord;
     private int yCoord;
@@ -14,6 +16,14 @@ public class City {
     public int distance(City other) {
         return (int)Math.round(Math.sqrt((other.yCoord - this.yCoord) * (other.yCoord - this.yCoord) +
                 (other.xCoord - this.xCoord) * (other.xCoord - this.xCoord)));
+    }
+
+    public int getX() {
+        return xCoord;
+    }
+
+    public int getY() {
+        return yCoord;
     }
 
     public void visit() {
