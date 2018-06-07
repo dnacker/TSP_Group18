@@ -2,20 +2,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class NNAlgorithm {
-    public static void main(String[] args) {
-        String filename = FileIO.getFileName(args);
-        List<City> cities = FileIO.readFile(filename);
-        Path tour;
-        if (cities.size() < 1000) {
-            tour = NNAlgorithm.nearestNeighborSolveAllCities(cities);
-        } else {
-            tour = NNAlgorithm.nearestNeighborSolveOneCity(cities, cities.get((int)(Math.random()*cities.size())));
-        }
-        tour.printPath(System.out);
-        FileIO.writeFile(filename + ".tour", tour);
-        //GraphVisualizer graph = new GraphVisualizer(cities, tour);
-    }
-
     public static Path nearestNeighborSolveAllCities(List<City> cities) {
         Path shortestPath = null;
         long shortestPathLength = Long.MAX_VALUE;
