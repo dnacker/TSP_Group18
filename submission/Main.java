@@ -25,5 +25,6 @@ public class Main {
         }
         System.out.println("Finished in: " + watch.getElapsedTime() + " ms");
         tour.printPath(System.out);
+        FileIO.writeFile(filename + ".tour", tour);
     }
 }
